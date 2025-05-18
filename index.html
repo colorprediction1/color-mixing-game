@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Color Mixing Game</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    .color-btn {
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    #targetColor, #mixedColor {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      border: 2px solid black;
+    }
+    #message {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Color Mixing Game</h1>
+
+  <p>Mix the colors to match the target!</p>
+
+  <div>Target Color:</div>
+  <div id="targetColor"></div>
+
+  <div>Mixed Color:</div>
+  <div id="mixedColor"></div>
+
+  <div>
+    <button class="color-btn" style="background:red;" onclick="addColor('red')"></button>
+    <button class="color-btn" style="background:blue;" onclick="addColor('blue')"></button>
+    <button class="color-btn" style="background:yellow;" onclick="addColor('yellow')"></button>
+  </div>
+
+  <div id="message"></div>
+
+  <script>
+    const mixes = {
+      "redblue": "purple",
+      "bluered": "purple",
+      "redyellow": "orange",
+      "yellowred": "orange",
+      "blueyellow": "green",
+      "yellowblue": "green"
+    };
+
+    const targetColors = ["purple", "orange", "green"];
+    let selectedColors = [];
+
+    let target = targetColors[Math.floor(Math.random() * targetColors.length)];
+    document.getElementById("targetColor").style.background = target;
+
+    function addColor(color) {
+      if (selectedColors.length < 2) {
+        selectedColors.push(color);
+        if (selectedColors.length === 2) {
+          const mixed = mixes[selectedColors.join("")] || "unknown";
+          document.getElementById("mixedColor").style.background = mixed;
+
+          if (mixed === target) {
+            document.getElementById("message").textContent = "You Win!";
+          } else {
+            document.getElementById("message").textContent = "Try Again!";
+          }
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
